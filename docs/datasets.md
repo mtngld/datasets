@@ -1517,7 +1517,75 @@ url = "http://download.tensorflow.org/example_images/flower_photos.tgz" }
 
 ---
 
+### `"Pascal VOC"`
 
+The Pascal Visual Object Classes (VOC) challenge is a benchmark in visual object category recognition and detection,
+
+* URL: [http://host.robots.ox.ac.uk/pascal/VOC/](http://host.robots.ox.ac.uk/pascal/VOC/)
+* `DatasetBuilder`: [`tfds.image.voc.VOC`](https://github.com/tensorflow/datasets/tree/master/tensorflow_datasets/image/voc.py)
+* Version: `v1.0.0`
+* Size:
+  * 2007 - `855M`
+  * 2012 - `1.4G`
+
+#### Features
+```python
+FeaturesDict({
+    'height': tf.int64,
+    'width': tf.int64,
+    'filename': tfds.features.Text(),
+    'image': tfds.features.Image(),
+    'objects': tfds.features.SequenceDict(
+        {
+            'bbox': tfds.features.BBoxFeature(),
+            'class': tfds.features.ClassLabel(names=VOC_CLASSES),
+            'difficult': tf.int64,
+            'truncated': tf.int64,
+            'view': tfds.features.Text(),
+})
+```
+
+
+#### Statistics
+
+VOC 2007
+Split  | Examples
+:----- | ---:
+TRAIN      |      2501
+VAL        |      2510
+TEST       |      4952
+
+
+VOC 2012
+Split  | Examples
+:----- | ---:
+TRAIN      |      5717
+VAL        |      5823
+
+
+#### Urls
+ * [Pascal VOC main page.](http://host.robots.ox.ac.uk/pascal/VOC/)
+ * [2007 Challenge.](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/index.html)
+ * [2012 Challenge.](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html)
+
+#### Supervised keys (for `as_supervised=True`)
+`None`
+
+#### Citation
+```
+@Article{Everingham10,
+   author = "Everingham, M. and Van~Gool, L. and Williams, C. K. I. and Winn, J. and Zisserman, A.",
+   title = "The Pascal Visual Object Classes (VOC) Challenge",
+   journal = "International Journal of Computer Vision",
+   volume = "88",
+   year = "2010",
+   number = "2",
+   month = jun,
+   pages = "303--338",
+}
+```
+
+---
 
 ## [`structured`](#structured)
 
