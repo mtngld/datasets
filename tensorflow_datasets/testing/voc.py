@@ -31,7 +31,6 @@ from absl import flags
 import numpy as np
 
 import tensorflow as tf
-import tensorflow_datasets as tfds
 from tensorflow_datasets.core import utils
 from tensorflow_datasets.core.utils import py_utils
 
@@ -46,7 +45,8 @@ flags.DEFINE_string("tfds_dir", py_utils.tfds_dir(),
 FLAGS = flags.FLAGS
 
 def voc_output_dir():
-  return os.path.join(FLAGS.tfds_dir, "testing", "test_data", "fake_examples", "voc")
+  return os.path.join(
+    FLAGS.tfds_dir, "testing", "test_data", "fake_examples", "voc")
 
 
 def remake_dirs(d):
@@ -142,26 +142,31 @@ def generate_voc_data(name, indices, year):
   tar_name = os.path.join(output_dir, name)
 
   with tarfile.open(tar_name, "w") as tar:
-      for idx in indices:
+    for idx in indices:
 
-        # Create images
-        jpeg, width, height = _get_random_jpeg()
-        tar.add(jpeg, arcname=os.path.join("VOCdevkit/VOC" + year, "JPEGImages", str(idx) + ".jpg"))
+      # Create images
+      jpeg, width, height = _get_random_jpeg()
+      tar.add(jpeg, arcname=os.path.join(
+        "VOCdevkit/VOC" + year, "JPEGImages", str(idx) + ".jpg"))
 
-        # Create annotations
-        annot = _get_random_annotation(str(idx) + ".jpg", width, height)
-        tar.add(annot, arcname=os.path.join("VOCdevkit/VOC" + year, "Annotations", str(idx) + ".xml"))
+      # Create annotations
+      annot = _get_random_annotation(str(idx) + ".jpg", width, height)
+      tar.add(annot, arcname=os.path.join(
+        "VOCdevkit/VOC" + year, "Annotations", str(idx) + ".xml"))
 
       if "trainval" in name:
         set_file = _get_set_file(indices[:NUMBER_IMAGES_PER_SPLIT])
-        tar.add(set_file, arcname=os.path.join("VOCdevkit/VOC" + year, "ImageSets", "Main", "train.txt"))
+        tar.add(set_file, arcname=os.path.join(
+          "VOCdevkit/VOC" + year, "ImageSets", "Main", "train.txt"))
 
         set_file = _get_set_file(indices[NUMBER_IMAGES_PER_SPLIT:])
-        tar.add(set_file, arcname=os.path.join("VOCdevkit/VOC" + year, "ImageSets", "Main", "val.txt"))
+        tar.add(set_file, arcname=os.path.join(
+          "VOCdevkit/VOC" + year, "ImageSets", "Main", "val.txt"))
 
       elif "test" in name:
         set_file = _get_set_file(indices)
-        tar.add(set_file, arcname=os.path.join("VOCdevkit/VOC" + year + "/ImageSets/Main", "test.txt"))
+        tar.add(set_file, arcname=os.path.join(
+          "VOCdevkit/VOC" + year + "/ImageSets/Main", "test.txt"))
 
 
 
@@ -173,9 +178,12 @@ def main(argv):
   remake_dirs(output_dir)
   indices = list(range(3 * NUMBER_IMAGES_PER_SPLIT))
   random.shuffle(indices)
-  generate_voc_data(name="VOC2007trainval_fake.tar", indices=indices[:2 * NUMBER_IMAGES_PER_SPLIT], year="2007")
-  generate_voc_data(name="VOC2007test_fake.tar", indices=indices[2* NUMBER_IMAGES_PER_SPLIT:], year="2007")
-  generate_voc_data(name="VOC2012trainval_fake.tar", indices=indices[:2 * NUMBER_IMAGES_PER_SPLIT], year="2012")
+  generate_voc_data(
+    name="VOC2007trainval_fake.tar",
+    indices=indices[:2 * NUMBER_IMAGES_PER_SPLIT], year="2007")
+  generate_voc_data(
+    name="VOC2007test_fake.tar",
+    indices=indices[2* NUMBER_IMAGES_PER_SPLIT:], year="2007")
 
 
 if __name__ == "__main__":
