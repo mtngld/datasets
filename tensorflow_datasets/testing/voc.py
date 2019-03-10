@@ -46,7 +46,7 @@ flags.DEFINE_string("tfds_dir", py_utils.tfds_dir(),
 FLAGS = flags.FLAGS
 
 def voc_output_dir():
-  return os.path.join("tensorflow_datasets", "testing", "test_data", "fake_examples", "voc")
+  return os.path.join(FLAGS.tfds_dir, "testing", "test_data", "fake_examples", "voc")
 
 
 def remake_dirs(d):
