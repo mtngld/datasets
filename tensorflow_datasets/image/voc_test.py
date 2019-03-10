@@ -33,17 +33,5 @@ class Voc2007Test(tfds_test.DatasetBuilderTestCase):
   }
   BUILDER_CONFIG_NAMES_TO_TEST = ["voc2007"]
 
-class Voc2012Test(tfds_test.DatasetBuilderTestCase):
-  DATASET_CLASS = voc.VOC
-  SPLITS = {  # Expected number of examples on each split from fake example.
-      "train": 10,
-      "val": 10,
-  }
-  # If dataset `download_and_extract` more than one resource:
-  DL_EXTRACT_RESULT = {
-      "trainval": "VOC2012trainval_fake.tar",
-  }
-  BUILDER_CONFIG_NAMES_TO_TEST = ["voc2012"]
-
 if __name__ == "__main__":
   tfds_test.test_main()
